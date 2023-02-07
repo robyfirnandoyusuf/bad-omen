@@ -40,15 +40,31 @@ class Migrate extends Command {
     {
         $dir = database_path('migrations');
         $files = array_values(array_diff(scandir($dir), array('..', '.')));
-        
+
         foreach ($files as $file) {
             $baseName = pathinfo($file, PATHINFO_FILENAME);
-            $cmig = DB::table('migrations')->where('migration', $baseName)->count();
+            preg_match('/\'(.*)\'/', file_get_contents("$dir/$file"), $match);
+
+            $tbName = $match[1];
+
+            // $cmig = DB::table(env('DB_SCHEMA').'.testxx')->where('migration', $baseName)->count();
+
+            $cmig = DB::table(env('DB_SCHEMA').'.migrations')->where('migration', $baseName)->count();
             
-            if ($cmig <= 0) {
+            $tbExists = DB::select("
+                SELECT EXISTS(
+                    SELECT * 
+                    FROM information_schema.tables 
+                    WHERE 
+                    table_schema = '".env('DB_SCHEMA')."' AND 
+                    table_name = '{$tbName}'
+                );
+            ");
+
+            if ($cmig <= 0 && $tbExists[0]->exists == true) {
                 echo "$baseName - Does not exist in migrations table\n";
 
-                DB::table('migrations')->insert(
+                DB::table(env('DB_SCHEMA').'.migrations')->insert(
                     [
                         'migration' => $baseName,
                         'batch' => 1
