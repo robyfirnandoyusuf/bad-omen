@@ -25,18 +25,6 @@ class BadOmenServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind(
-            'Robyfirnandoyusuf\BadOmen\Commands\Migrate',
-        );
-
-        $this->app->singleton(Migrate::class, function($app) {
-            return new Migrate();
-        });
-
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                Robyfirnandoyusuf\BadOmen\Commands\Migrate::class
-            ]);
-        }
+        
     }
 }
