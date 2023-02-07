@@ -1,17 +1,15 @@
 <?php
+
 namespace Robyfirnandoyusuf\BadOmen;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use Robyfirnandoyusuf\BadOmen\Commands\Migrate;
 
-class BadOmenServiceProvider extends ServiceProvider {
+class BadOmenServiceProvider extends ServiceProvider
+{
 
-    // protected $commands = [
-    //     Robyfirnandoyusuf\BadOmen\Migrate::class,
-    // ];
-
-     /**
+    /**
      * Bootstrap the application services.
      *
      * @return void
@@ -25,7 +23,20 @@ class BadOmenServiceProvider extends ServiceProvider {
         }
     }
 
-    // public function boot(\Illuminate\Routing\Router $router) {
-    //     $this->commands($this->commands);
-    // }
+    public function register()
+    {
+        $this->app->bind(
+            'Robyfirnandoyusuf\BadOmen\Commands\Migrate',
+        );
+
+        $this->app->singleton(Migrate::class, function($app) {
+            return new Migrate();
+        });
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Robyfirnandoyusuf\BadOmen\Commands\Migrate::class
+            ]);
+        }
+    }
 }

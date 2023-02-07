@@ -14,6 +14,13 @@
             "email": "0x3a3a3a@gmail.com"
         }
     ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Robyfirnandoyusuf\\BadOmen\\BadOmenServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "require": {}
 }
