@@ -1,0 +1,19 @@
+{
+    "name": "robyfirnandoyusuf/bad-omen",
+    "autoload": {
+        "psr-4": {
+            "Robyfirnandoyusuf\\BadOmen\\": "src/"
+        }
+    },
+    "description": "Bad Omen - a simple package to register your migration without run migrate",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roby Firnando Yusuf",
+            "email": "0x3a3a3a@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
