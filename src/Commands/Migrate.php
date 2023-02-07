@@ -40,8 +40,6 @@ class Migrate extends Command {
     {
         $files = glob("$dir/*_create_*_table.php");
 
-        $files = glob("$dir/*_create_*_table.php");
-
         foreach ($files as $file) {
             $baseName = pathinfo($file, PATHINFO_FILENAME);
             $cmig = DB::table('migrations')->where('migration', $baseName)->count();
