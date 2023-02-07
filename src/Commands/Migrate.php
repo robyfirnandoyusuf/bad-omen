@@ -38,7 +38,8 @@ class Migrate extends Command {
      */
     public function handle()
     {
-        $files = glob("$dir/*_create_*_table.php");
+        $files = database_path('migrations');
+        // $files = glob("$dir/*_create_*_table.php");
 
         foreach ($files as $file) {
             $baseName = pathinfo($file, PATHINFO_FILENAME);
