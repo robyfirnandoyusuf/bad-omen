@@ -38,8 +38,7 @@ class Migrate extends Command {
      */
     public function handle()
     {
-        $dir = '/var/www/html/portal-dikti/database/migrations';
-        // $files = glob("$dir/*_create_*_table.php");
+        $files = glob("$dir/*_create_*_table.php");
 
         $files = glob("$dir/*_create_*_table.php");
 
