@@ -38,9 +38,9 @@ class Migrate extends Command {
      */
     public function handle()
     {
-        $files = database_path('migrations');
-        // $files = glob("$dir/*_create_*_table.php");
-
+        $dir = database_path('migrations');
+        $files = array_values(array_diff(scandir($dir), array('..', '.')));
+        
         foreach ($files as $file) {
             $baseName = pathinfo($file, PATHINFO_FILENAME);
             $cmig = DB::table('migrations')->where('migration', $baseName)->count();
